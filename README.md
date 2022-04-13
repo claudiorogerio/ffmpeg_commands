@@ -51,3 +51,34 @@ ffmpeg -f v4l2 -framerate 30 -video_size 320x240 -i /dev/video0  -filter_complex
 ```shell
 ffmpeg -i video_01.mp4 -i video_02.mp4 -filter_complex "[0:v:0][0:a:0][1:v:0][1:a:0]concat=n=2:v=1:a=1[outv][outa]" -map "[outv]" -map "[outa]" out.mp4
 ```
+
+> Add audio in video
+```shell
+ffmpeg -i video.mp4 -i audio.wav -c:v copy -map 0:v:0 -map 1:a:0 out.mp4
+```
+
+> Create audio sinusoid mono/stereo
+```shell
+ffmpeg -f lavfi -i "sine=frequency=200:duration=3" sine_200.wav
+ffmpeg -f lavfi -i "sine=frequency=500:duration=3" sine_500.wav
+ffmpeg -f lavfi -i "sine=frequency=1000:duration=5" -ac 2 sine_1000.wav
+ffmpeg -f lavfi -i "sine=frequency=1500:duration=5" -ac 2 sine_1500.wav
+```
+
+
+> Merge sequential audios
+```shell
+ffmpeg -i sine_200.wav -i sine_500.wav -filter_complex amix=inputs=2:duration=first:dropout_transition=2 out.wav
+```
+
+
+> Create audio noise
+```shell
+ffmpeg -f lavfi -i "anoisesrc=d=5:c=pink:r=44100:a=0.5" noise.wav -y
+```
+
+
+> Add filters low and highpass
+```shell
+ffmpeg -i audio.wav -af "highpass=f=200, lowpass=f=3000"
+```
