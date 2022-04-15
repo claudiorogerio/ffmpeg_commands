@@ -46,6 +46,11 @@ ffmpeg -f x11grab -framerate 30 -video_size 1366x768 -i :0.0  -f alsa -ac 2 -ar 
 ffmpeg -f v4l2 -framerate 30 -video_size 320x240 -i /dev/video0  -filter_complex  "[0:v]pad=iw:768:0:(oh-ih)/3[left];[left][1:v]hstack"
 ```
 
+> Scale videos
+```shell
+ffmpeg -i video_01.mp4 -vf scale=1920:1080 -preset slow -crf 10 out.mp4
+```
+
 
 > Merge videos
 ```shell
@@ -56,6 +61,7 @@ ffmpeg -i video_01.mp4 -i video_02.mp4 -filter_complex "[0:v:0][0:a:0][1:v:0][1:
 ```shell
 ffmpeg -i video.mp4 -i audio.wav -c:v copy -map 0:v:0 -map 1:a:0 out.mp4
 ```
+
 
 > Create audio sinusoid mono/stereo
 ```shell
@@ -68,8 +74,19 @@ ffmpeg -f lavfi -i "sine=frequency=1500:duration=5" -ac 2 sine_1500.wav
 
 > Merge sequential audios
 ```shell
-ffmpeg -i sine_200.wav -i sine_500.wav -filter_complex amix=inputs=2:duration=first:dropout_transition=2 out.wav
+ffmpeg -i sine_200.wav -i sine_500.wav -filter_complex amix=inputs=2:duration=first:dropout_transition=2  out.wav
 ```
+
+> Add dB amplitude volume in videos
+```shell
+ffmpeg -i video_01.mp4 -af volume=5dB -c:v copy -ac aac -b:a 192k out.mp4 
+```
+
+> Normalize videos audio
+```shell
+ffmpeg -i video_01.mp4 -filter:a loudnorm out.mp4 
+```
+
 
 
 > Create audio noise
