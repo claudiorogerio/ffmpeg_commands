@@ -17,13 +17,13 @@ ffmpeg -f alsa -ac 2 -ar 44100 -i default
 ```
 
 
-> Record Desktop
+> Record Desktop (1366x768)
 ```shell
 ffmpeg -f x11grab -framerate 30 -video_size 1366x768 -i :0.0 
 ```
 
 
-> Record Audio Desktop
+> Record Desktop Audio
 ```shell
 pactl list sources | grep 'analog-stereo.monitor' | awk '{print $2}' > audio 
 file_object  = open( "audio", "r" )
@@ -77,7 +77,7 @@ ffmpeg -f lavfi -i "sine=frequency=1500:duration=5" -ac 2 sine_1500.wav
 ffmpeg -i sine_200.wav -i sine_500.wav -filter_complex amix=inputs=2:duration=first:dropout_transition=2  out.wav
 ```
 
-> Add dB amplitude volume in videos
+> Add dB amplitude volume 
 ```shell
 ffmpeg -i video_01.mp4 -af volume=5dB -c:v copy -ac aac -b:a 192k out.mp4 
 ```
@@ -87,13 +87,10 @@ ffmpeg -i video_01.mp4 -af volume=5dB -c:v copy -ac aac -b:a 192k out.mp4
 ffmpeg -i video_01.mp4 -filter:a loudnorm out.mp4 
 ```
 
-
-
 > Create audio noise
 ```shell
 ffmpeg -f lavfi -i "anoisesrc=d=5:c=pink:r=44100:a=0.5" noise.wav -y
 ```
-
 
 > Add filters low and highpass
 ```shell
