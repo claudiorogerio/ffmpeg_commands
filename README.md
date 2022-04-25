@@ -7,19 +7,19 @@
 
 > Record WebCam
 ```shell
-ffmpeg -f v4l2 -framerate 30 -video_size 320x240 -i /dev/video0
+ffmpeg -f v4l2 -framerate 30 -video_size 320x240 -i /dev/video0 out.mp4
 ```
 
 
 > Record Microphone
 ```shell
-ffmpeg -f alsa -ac 2 -ar 44100 -i default
+ffmpeg -f alsa -ac 2 -ar 44100 -i default out.wav
 ```
 
 
 > Record Desktop (1366x768)
 ```shell
-ffmpeg -f x11grab -framerate 30 -video_size 1366x768 -i :0.0 
+ffmpeg -f x11grab -framerate 30 -video_size 1366x768 -i :0.0  out.mp4
 ```
 
 
@@ -31,19 +31,19 @@ driver = file_object.read().split()
 driver = driver[0] 
 file_object.close()
 
-ffmpeg -f pulse -i driver
+ffmpeg -f pulse -i driver out.mp4
 ```
 
 
 > Record Desktop (1366x768) and Microphone
 ```shell
-ffmpeg -f x11grab -framerate 30 -video_size 1366x768 -i :0.0  -f alsa -ac 2 -ar 44100 -i default 
+ffmpeg -f x11grab -framerate 30 -video_size 1366x768 -i :0.0  -f alsa -ac 2 -ar 44100 -i default  out.mp4
 ```
 
 
 > Record WebCam and Desktop
 ```shell
-ffmpeg -f v4l2 -framerate 30 -video_size 320x240 -i /dev/video0  -filter_complex  "[0:v]pad=iw:768:0:(oh-ih)/3[left];[left][1:v]hstack"
+ffmpeg -f v4l2 -framerate 30 -video_size 320x240 -i /dev/video0  -filter_complex  "[0:v]pad=iw:768:0:(oh-ih)/3[left];[left][1:v]hstack" out.mp4
 ```
 
 > Scale videos
@@ -89,10 +89,10 @@ ffmpeg -i video_01.mp4 -filter:a loudnorm out.mp4
 
 > Create audio noise
 ```shell
-ffmpeg -f lavfi -i "anoisesrc=d=5:c=pink:r=44100:a=0.5" noise.wav -y
+ffmpeg -f lavfi -i "anoisesrc=d=5:c=pink:r=44100:a=0.5" noise.wav 
 ```
 
 > Add filters low and highpass
 ```shell
-ffmpeg -i audio.wav -af "highpass=f=200, lowpass=f=3000"
+ffmpeg -i audio.wav -af "highpass=f=200, lowpass=f=3000" out.wav
 ```
