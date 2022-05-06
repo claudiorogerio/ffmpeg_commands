@@ -96,3 +96,8 @@ ffmpeg -f lavfi -i "anoisesrc=d=5:c=pink:r=44100:a=0.5" noise.wav
 ```shell
 ffmpeg -i audio.wav -af "highpass=f=200, lowpass=f=3000" out.wav
 ```
+
+> GIF by images
+```shell
+ffmpeg -framerate 1/5 -f image2 -i images_%d.png  out.gif 
+```
