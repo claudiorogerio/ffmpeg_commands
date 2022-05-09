@@ -97,7 +97,20 @@ ffmpeg -f lavfi -i "anoisesrc=d=5:c=pink:r=44100:a=0.5" noise.wav
 ffmpeg -i audio.wav -af "highpass=f=200, lowpass=f=3000" out.wav
 ```
 
-> GIF by images
+> Images to GIF
 ```shell
 ffmpeg -framerate 1/5 -f image2 -i images_%d.png  out.gif 
 ```
+
+> Images to MP4
+```shell
+ffmpeg -framerate 1/5 -f image2 -i images_%d.png  out.mp4 
+```
+
+> MP4 to GIF
+```shell
+ffmpeg -i out.mp4 -vf fps=${3:-10},scale=${2:-640}:-1:flags=lanczos,palettegen out.png
+ffmpeg -i out.mp4 -i out.png -filter_complex "fps=${3:-10},scale=${2:-640}:-1:flags=lanczos[x];[x][1:v]paletteuse" out.gif
+rm out.png
+```
+
