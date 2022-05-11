@@ -87,6 +87,11 @@ ffmpeg -i video_01.mp4 -af volume=5dB -c:v copy -ac aac -b:a 192k out.mp4
 ffmpeg -i video_01.mp4 -filter:a loudnorm out.mp4 
 ```
 
+> Compression video
+```shell
+ffmpeg -i video.mp4 -vcodec h264 -acodec mp2 out.mp4
+```
+
 > Create audio noise
 ```shell
 ffmpeg -f lavfi -i "anoisesrc=d=5:c=pink:r=44100:a=0.5" noise.wav 
@@ -113,4 +118,3 @@ ffmpeg -i out.mp4 -vf fps=${3:-10},scale=${2:-640}:-1:flags=lanczos,palettegen o
 ffmpeg -i out.mp4 -i out.png -filter_complex "fps=${3:-10},scale=${2:-640}:-1:flags=lanczos[x];[x][1:v]paletteuse" out.gif
 rm out.png
 ```
-
