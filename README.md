@@ -1,10 +1,9 @@
 # ffmpeg_commands
-## *Examples to using ffmpeg via terminal*
 
-
-* *Dependencies:*
+## *Dependencies:*
 - [x] sudo apt install ffmpeg
 
+## *Examples using ffmpeg via terminal*
 > Record WebCam
 ```shell
 ffmpeg -f v4l2 -framerate 30 -video_size 320x240 -i /dev/video0 out.mp4
