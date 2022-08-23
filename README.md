@@ -16,9 +16,15 @@ ffmpeg -f alsa -ac 2 -ar 44100 -i default out.wav
 ```
 
 
-> Record Desktop (1366x768)
+> Record Desktop 1 (1366x768)
 ```shell
 ffmpeg -f x11grab -framerate 30 -video_size 1366x768 -i :0.0  out.mp4
+```
+
+
+> Record Desktop 2 (800x400) initial position
+```shell
+ffmpeg -f x11grab -video_size 800x400 -i :0.0+pos_x,pos_y  out.mp4
 ```
 
 
