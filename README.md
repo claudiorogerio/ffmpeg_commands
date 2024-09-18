@@ -9,6 +9,11 @@
 ffmpeg -i input.wav -vn -ar 44100 -ac 2 -b:a 128k output.mp3
 ```
 
+> Wav to mp3 all files
+```shell
+for i in  *.wav ; do ffmpeg -i "${i}"  -ar 44100 -ac 2 -b:a 128k  "${i%%.*}.mp3"; done
+```
+
 > Mp3 to wav 
 ```shell
 ffmpeg -i input.mp3 -acodec pcm_s16le -ar 44100 output.wav
