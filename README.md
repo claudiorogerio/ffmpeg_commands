@@ -1,4 +1,4 @@
-# ffmpeg_commands
+# ffmpeg commands
 
 ## *Dependencies:*
 - [x] sudo apt install ffmpeg
