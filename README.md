@@ -4,6 +4,16 @@
 - [x] sudo apt install ffmpeg
 
 ## *Examples using ffmpeg via terminal*
+> Wav to mp3 
+```shell
+ffmpeg -i input.wav -vn -ar 44100 -ac 2 -b:a 128k output.mp3
+```
+
+> Mp3 to wav 
+```shell
+ffmpeg -i input.mp3 -acodec pcm_s16le -ar 44100 output.wav
+```
+
 > Record WebCam
 ```shell
 ffmpeg -f v4l2 -framerate 30 -video_size 320x240 -i /dev/video0 out.mp4
