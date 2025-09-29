@@ -138,3 +138,8 @@ ffmpeg -i out.mp4 -vf fps=${3:-10},scale=${2:-640}:-1:flags=lanczos,palettegen o
 ffmpeg -i out.mp4 -i out.png -filter_complex "fps=${3:-10},scale=${2:-640}:-1:flags=lanczos[x];[x][1:v]paletteuse" out.gif
 rm out.png
 ```
+
+> Screen MOV to MP4 in MacOS
+```shell
+ffmpeg -i input.mov -c:v libx264 -preset fast -crf 23 -c:a aac -b:a 192k -movflags +faststart out_02.mp4
+```
